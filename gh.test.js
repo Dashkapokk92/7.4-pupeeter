@@ -39,5 +39,33 @@ describe("Github page tests", () => {
     expect(actual).toContain("Get started with Team");
   }, 10000);
 });
+describe("Second task - add 3 new tests", () => {
+  afterEach(() => {
+    page.close();
+  });
+
+  test("Blog", async () => {
+    await page.goto("https://github.blog");
+    const title = await page.title();
+    expect(title).toContain(
+      "The GitHub Blog | Updates, ideas, and inspiration from GitHub to help developers build and design software."
+    );
+  });
+
+  test("h4Span Text under h1", async () => {
+    await page.goto("https://github.com/features/security");
+    const h4Span = await "h4 span.color-fg-default";
+    const h4SpanText = await page.$eval(h4Span, (el) => el.textContent);
+    expect(h4SpanText).toEqual(
+      "Ship secure applications within the GitHub flow"
+    );
+  });
+
+  test("Check Pricing page", async () => {
+    await page.goto("https://github.com/pricing");
+    const title = await page.title();
+    expect(title).toContain("Pricing · Plans for every developer · GitHub");
+  });
+});
 
 
